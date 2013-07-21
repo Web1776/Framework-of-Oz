@@ -216,12 +216,16 @@ class Metabox{
 				$nolabel 		= $field['nolabel'] ? 'nolabel' : '';
 				$fullWidth 		= $field['full'] ? ' full-width' : '';
 
+				//- - - - - - - - - - - - - - - - - - - - - - - -
+				// The field's class
+				//- - - - - - - - - - - - - - - - - - - - - - - -
 				$att['class'] = '';
 				if($field['_dynamicGroup']){
 					$att['class'] = 'watch-index';
 					if($field['dynamic'])
 						$att['class'] .= ' dynamic';
 				}
+				$att['class'] .= ' ' . $field['class'];
 
 				//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 				// Disabled fields
@@ -579,6 +583,7 @@ class Metabox{
 		self::def($field['nolabel'], false);
 		self::def($field['full'], false);
 		self::def($field['options'], array());
+		self::def($field['class'], '');
 
 		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		// Add field specific styles

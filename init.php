@@ -4,5 +4,5 @@
 // Build menu pages, register post types, and create metaboxes. Fast.
 //###################################################################
 
-require dirname(__FILE__) . '/menupages.php';
-require dirname(__FILE__) . '/metaboxes.php';
+if(!class_exists('Menupage')) require dirname(__FILE__) . '/menupages.php';
+if(!class_exists('Metabox')) require dirname(__FILE__) . '/metaboxes.php';
