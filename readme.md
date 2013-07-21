@@ -68,7 +68,8 @@ function my_metaboxes($mb){
 'priority'		=> 'high',		//[STR] [Metabox priority](http://codex.wordpress.org/Function_Reference/add_meta_box)  
 'post_types'	=> '*',			//[STR, ARR, NULL] can be spelled `post_type` as well and must be either an array or comma separated string listing all the [custom] Post Types this metabox will appear on. If `'*'` is passed, then the metabox gets applied to every post type!  
 'fields'		=> array(), 	//[ARR] *REQUIRED* List of arrays, each containing a field to display. Possible values are listed below.  
-'templates'		=> array() 		//[STR, ARR, NULL] Taking the same argument types as `post_type`, this list contains all the post/page templates this metabox will appear on. Note that the template name must contain the extension, ie `template-demo.php`
+'templates'		=> array(), 	//[STR, ARR, NULL] Taking the same argument types as `post_type`, this list contains all the post/page templates this metabox will appear on. Note that the template name must contain the extension, ie `template-demo.php`
+'callback'		=> false, 		//[FUNCTION] A function to call when the metabox is displayed. The function is passed a single object, $this, which contains the entire metabox instance.
 ```
 
 
@@ -99,6 +100,7 @@ array(
 	'settings'	=> array(),		//[ARR] 	Additional settings to use for certain fields (like editor)  
 	'options'	=> array(), 	//[ARR] 	The list of options for select boxes. The key will be used as the value, and the value will be used as the label. See `select` in the field descriptions below for more details.
 	'class'		=> '',			//[STR] 	Extra classes to apply. Classes should be space separated and without the dot (this will essentially get dumped into the elements `class` attribute)
+	'callback'	=> false,		//[FUNCTION] A function to call once the field has been displayed. Get's passed ($this, $field), which represent the metabox instance and current field respectively
 )
 ```
 

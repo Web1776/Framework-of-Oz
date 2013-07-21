@@ -127,7 +127,8 @@ class Metabox{
 		self::def($this->mb['context'], 	'normal');
 		self::def($this->mb['priority'], 	'high');
 		self::def($this->mb['label'], 		'Metabox');
-		self::def($this->mb['templates'],	 array());
+		self::def($this->mb['templates'],	array());
+		self::def($this->mb['callback'], 	false);
 
 		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		// Apply to all post types if a wildcard is provided
@@ -341,6 +342,11 @@ class Metabox{
 								($preview) ? '<div class="preview"><img src="'. $att["value"][$i] . '"></div>' : '',
 								'</div>',
 							'</div>';
+
+							//- - - - - - - - - - - - - - - - - - - - - - - -
+							// Execute callback
+							//- - - - - - - - - - - - - - - - - - - - - - - -
+							if($field['callback']) call_user_func($field['callback'], $this, $field);
 						}
 
 					echo '</div>',
@@ -414,6 +420,11 @@ class Metabox{
 				}
 			}
 		echo '</div>';
+
+		//- - - - - - - - - - - - - - - - - - - - - - - -
+		// Execute callback
+		//- - - - - - - - - - - - - - - - - - - - - - - -
+		if($this->mb['callback']) call_user_func($this->mb['callback'], $this);
 	}
 
 
@@ -584,6 +595,7 @@ class Metabox{
 		self::def($field['full'], false);
 		self::def($field['options'], array());
 		self::def($field['class'], '');
+		self::def($field['callback'], false);
 
 		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		// Add field specific styles
