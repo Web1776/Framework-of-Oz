@@ -5,9 +5,10 @@
 //==========================================================
 // Execute the 'menupage' filter
 //==========================================================
-add_action('init', function(){
+add_action('init', 'Init_Menupage_of_Oz', 1000);
+function Init_Menupage_of_Oz(){
 	Menupage::load();
-}, 1000);
+}
 
 class Menupage{
 	//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

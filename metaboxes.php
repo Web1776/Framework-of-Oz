@@ -6,9 +6,10 @@
 //==========================================================
 // Execute the 'metabox' filter
 //==========================================================
-add_action('init', function(){
+add_action('init', 'Init_Metabox_of_Oz', 1000);
+function Init_Metabox_of_Oz(){
 	Metabox::load();
-}, 1000);
+}
 
 //###########################################################################
 // Create the Metabox Class
