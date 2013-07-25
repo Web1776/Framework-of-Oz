@@ -212,7 +212,7 @@ class Metabox{
 				$att['id'] 		= $field['id'];
 				$att['name']	= $field['_name'];
 				$att['dynamic'] = $field['dynamic'] ? 'dynamic="' . $att['id'] . '"' : '';
-				$att['value'] 	= self::def($this->meta[$field['id']], '');
+				$att['value'] 	= self::def($this->meta[$field['id']], $field['default']);
 				$att['button'] 	= $field['button'];
 				$att['settings']= $field['settings'];
 				$nolabel 		= $field['nolabel'] ? 'nolabel' : '';
@@ -599,6 +599,7 @@ class Metabox{
 		self::def($field['options'], array());
 		self::def($field['class'], '');
 		self::def($field['callback'], false);
+		self::def($field['default'], '');
 
 		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		// Add field specific styles

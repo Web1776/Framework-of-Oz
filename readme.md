@@ -89,6 +89,7 @@ array(
 	'id'		=> '',			//[STR] 	The name attribute of the field's element and the key used in [get_post_meta()](http://codex.wordpress.org/Function_Reference/get_post_meta). Note that this also sets the elements id, setting is as id="metabox-NAME" where NAME is the slugified version of this value.  
 	'label' 	=> '',			//[STR] 	The label to display next to the field.
 	'nolabel'	=> false,		//[BOOL] 	whether to add display a label (false) or not (true)  
+	'default'	=> '',			//[*] 		Default value, can be whatever type the field accepts (STR, BOOL, CHECKED, etc)
 	'full'		=> false,		//[BOOL] 	Whether to stack the label ontop of the control, making them both full width. Useful for editors.
 	'desc'		=> '',			//[STR] 	A description to display below the field. Go nuts with HTML if you'd like!
 	'value' 	=> '',			//[STR] 	The default value to use  
