@@ -50,6 +50,7 @@ function my_menupage($mp){
 	return $mp;
 }
 
+---
 
 ##Creating a new Metabox
 In the function below, every `$mb[]` assignment creates a new metabox;
@@ -102,6 +103,9 @@ array(
 	'options'	=> array(), 	//[ARR] 	The list of options for select boxes. The key will be used as the value, and the value will be used as the label. See `select` in the field descriptions below for more details.
 	'class'		=> '',			//[STR] 	Extra classes to apply. Classes should be space separated and without the dot (this will essentially get dumped into the elements `class` attribute)
 	'callback'	=> false,		//[FUNCTION] A function to call once the field has been displayed. Get's passed ($this, $field), which represent the metabox instance and current field respectively
+	'default'	=> '',			//[*]		A default value to use. Value should match the fields acceptable value data-types
+	'range'		=> array(0, 100),//[INT] 	Min/Max range for [type="range"] fields
+	'step'		=> 1 			//[INT] 	The range step
 )
 ```
 
@@ -118,6 +122,17 @@ editor [wysiwyg]
 
 #### `text`
 The standard text input.
+
+#### `range`
+Creates a number range field. Use `range` to set the min/max range of the input (in the form array(%MIN, %MAX)) and `step` to set the range step field:
+```php
+array(
+	'id'	=> 'age',
+	'type'	=> 'range',
+	'range'	=> array(21, 52),
+	'step'	=> 1
+);
+```
 
 #### `textarea`
 The standard textarea box.
@@ -153,8 +168,13 @@ For standard arrays, the index is used as the value:
 )
 Should the user select "Orange" from this dropdown, the value stored would be 2.
 
+#### `submit`
+Creates a submit button. Useful when creating menupages, and accepts the same parameters as `file`.
 
-###Field Groups
+
+
+
+##Field Groups
 Field Groups let you group together related controls, while keeping them all under one metabox. And because groups themselves can be duplicated and moved around dynamically, you can power complex, self-contained mini-apps with very little code!
 
 While `dynamic` allows you to duplicate a single field, you can duplicate a group of fields by simply putting the group of fields in an array:
@@ -201,7 +221,7 @@ To quickly see the contents of the metabox, copy/paste the following:
     $my_metabox = 'id';	//Set this string to your metabox's id
     echo '<pre>', print_r(get_post_meta($post->ID, $my_metabox, true)), '</pre>';
 
-
+---
 
 ##Creating a new Menupage
 Menupages are designed to be populated with our metaboxes (or not!), and each menupage comes with a Save panel. Creating one is simple:

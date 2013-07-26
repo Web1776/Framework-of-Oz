@@ -126,6 +126,10 @@
 		height: 100px;
 	}
 	input.oz{width: 100%;}
+	.field-range{
+		display: inline-block;
+		@extend .box-sizing;
+	}
 	input{
 		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		// Array Controls

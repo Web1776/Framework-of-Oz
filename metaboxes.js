@@ -193,6 +193,31 @@ jQuery(function($){
 		}
 	});
 
+	//==========================================================
+	// Update Range input fields
+	//==========================================================
+	$('.oz.field-range').each(function(){
+		var $this = $(this);
+		var $input = $this.next();
+		var val = parseFloat($input.val());
+		$this.slider({
+			min: $this.attr('min'),
+			max: $this.attr('max'),
+			value: val,
+			step: parseFloat($this.attr('step')),
+			slide: function( event, ui ) {
+		        $input.val( ui.value );
+		    }
+		});
+		$input.keyup(function(){
+			$this.slider('value', $input.val());
+		});
+		$input.change(function(){
+			$this.slider('value', $input.val());
+		});
+		$input.val(val);
+	});
+
 	//###########################################################################
 	// Handle file Upload
 	//###########################################################################

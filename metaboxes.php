@@ -215,6 +215,8 @@ class Metabox{
 				$att['value'] 	= oz::def($this->meta[$field['id']], $field['default']);
 				$att['button'] 	= $field['button'];
 				$att['settings']= $field['settings'];
+				$att['range']	= $field['range'];
+				$att['step']	= $field['step'];
 				$nolabel 		= $field['nolabel'] ? 'nolabel' : '';
 				$fullWidth 		= $field['full'] ? ' full-width' : '';
 
@@ -290,19 +292,27 @@ class Metabox{
 									// Text
 									//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 									case 'text':
-										echo '<input class="oz ', $att['class'],'" type="text" id="field-',$att['id'],'" name="',$att['name'] ,'" value="', esc_attr($att['value'][$i]),'" ', $disabled ,' />';
+										echo '<input class="oz field-text ', $att['class'],'" type="text" id="field-',$att['id'],'" name="',$att['name'] ,'" value="', esc_attr($att['value'][$i]),'" ', $disabled ,' />';
 									break;
+									//- - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+									// Range
+									//- - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+									case 'range':
+										echo '<div class="oz field-range paired left ', $att['class'],'" min="',$att['range'][0],'" max="',$att['range'][1],'" step="',$att['step'],'" id="field-',$att['id'],'" value="', esc_attr($att['value'][$i]),'" ', $disabled ,'></div>';
+										echo '<input class="oz paired right field-text ', $att['class'],'" type="text" id="field-',$att['id'],'" name="',$att['name'] ,'" value="', esc_attr($att['value'][$i]),'" ', $disabled ,' />';
+									break;
+
 									//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 									// Textarea
 									//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 									case 'textarea':
-										echo '<textarea class="oz ', $att['class'],'" id="field-',$att['id'],'" name="',$att['name'] ,'" ', $disabled ,' >', esc_attr($att['value'][$i]), '</textarea>';
+										echo '<textarea class="oz field-textarea ', $att['class'],'" id="field-',$att['id'],'" name="',$att['name'] ,'" ', $disabled ,' >', esc_attr($att['value'][$i]), '</textarea>';
 									break;
 									//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 									// File Uploader
 									//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 									case 'file':
-										echo '<input class="oz paired left ', $att['class'],'" type="text" id="field-',$att['id'],'" name="',$att['name'] ,'" value="', esc_attr($att['value'][$i]),'" ', $disabled ,' />';
+										echo '<input class="oz paired left field-file ', $att['class'],'" type="text" id="field-',$att['id'],'" name="',$att['name'] ,'" value="', esc_attr($att['value'][$i]),'" ', $disabled ,' />';
 										echo '<input type="button" class="oz paired right button button-upload enabled" value="',$att['button'],'">';
 										$preview = true;
 									break;
@@ -310,13 +320,13 @@ class Metabox{
 									// WYSIWYG
 									//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 									case 'wysiwyg': case 'editor':
-										echo '<textarea class="oz redactor ', $att['class'],'" id="field-',$att['id'],'" name="',$att['name'] ,'" ', $disabled ,' >', esc_html($att['value'][$i]), '</textarea>';
+										echo '<textarea class="oz redactor field-editor ', $att['class'],'" id="field-',$att['id'],'" name="',$att['name'] ,'" ', $disabled ,' >', esc_html($att['value'][$i]), '</textarea>';
 									break;
 									//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 									// Select
 									//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 									case 'select':
-										echo '<select class="oz ', $att['class'],'" id="field-',$att['id'],'" name="',$att['name'] ,'" ', $disabled ,'>';
+										echo '<select class="oz field-select ', $att['class'],'" id="field-',$att['id'],'" name="',$att['name'] ,'" ', $disabled ,'>';
 											foreach($field['options'] as $val=>$option){
 												$selected = '';
 												if($att['value'][$i] == $val)
@@ -329,7 +339,7 @@ class Metabox{
 									// Submit Button
 									//- - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 									case 'submit':
-										echo '<input type="submit" class="oz paired right button button-primary enabled" value="',$att['button'],'">';
+										echo '<input type="submit" class="oz paired right button button-primary enabled field-submit ',$att['class'],'" value="',$att['button'],'">';
 									break;
 
 
@@ -557,6 +567,7 @@ class Metabox{
 	//=============================================================================
 	function styles(){
 		wp_enqueue_style('metaboxes-of-oz', METABOX_OF_OZ . 'style.css');
+		wp_enqueue_style('jquery-ui', METABOX_OF_OZ . 'jquery-ui/jquery-ui-1.10.3.custom.min.css');
 		wp_enqueue_script('metaboxes-of-oz', METABOX_OF_OZ . 'metaboxes.js', array('jquery'));
 
     		?>
@@ -600,6 +611,14 @@ class Metabox{
 		oz::def($field['class'], '');
 		oz::def($field['callback'], false);
 		oz::def($field['default'], '');
+		oz::def($field['range'], array(0, 100));
+		oz::def($field['step'], 1);
+
+		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		// Ensure values are ok
+		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		if(!is_array($field['range']) || count($field['range']) < 2) trigger_error('field `range` must be an array of length > 1');
+
 
 		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		// Add field specific styles
@@ -608,6 +627,9 @@ class Metabox{
 		    wp_enqueue_style( 'thickbox' ); // Stylesheet used by Thickbox
 		    wp_enqueue_script( 'thickbox' );
 		    wp_enqueue_script( 'media-upload' );			
+		}
+		if($field['type'] == 'range'){
+			wp_enqueue_script('jquery-ui-slider');
 		}
 
 		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
