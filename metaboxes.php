@@ -124,12 +124,12 @@ class Metabox{
 		// Defaults
 		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		$this->mb['id'] = sanitize_title($this->mb['id']);
-		self::def($this->mb['post_types'],	array('*'));
-		self::def($this->mb['context'], 	'normal');
-		self::def($this->mb['priority'], 	'high');
-		self::def($this->mb['label'], 		'Metabox');
-		self::def($this->mb['templates'],	array());
-		self::def($this->mb['callback'], 	false);
+		oz::def($this->mb['post_types'],	array('*'));
+		oz::def($this->mb['context'], 	'normal');
+		oz::def($this->mb['priority'], 	'high');
+		oz::def($this->mb['label'], 		'Metabox');
+		oz::def($this->mb['templates'],	array());
+		oz::def($this->mb['callback'], 	false);
 
 		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		// Apply to all post types if a wildcard is provided
@@ -212,7 +212,7 @@ class Metabox{
 				$att['id'] 		= $field['id'];
 				$att['name']	= $field['_name'];
 				$att['dynamic'] = $field['dynamic'] ? 'dynamic="' . $att['id'] . '"' : '';
-				$att['value'] 	= self::def($this->meta[$field['id']], $field['default']);
+				$att['value'] 	= oz::def($this->meta[$field['id']], $field['default']);
 				$att['button'] 	= $field['button'];
 				$att['settings']= $field['settings'];
 				$nolabel 		= $field['nolabel'] ? 'nolabel' : '';
@@ -385,7 +385,7 @@ class Metabox{
 										//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 										// Get the next meta data
 										//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-										$val = self::def($this->meta[$this->flat[$f+1]['id']], '');
+										$val = oz::def($this->meta[$this->flat[$f+1]['id']], '');
 										if(!is_array($val)) $val = array($val);
 
 										$group[] = array(
@@ -584,22 +584,22 @@ class Metabox{
 		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		// User Defaults
 		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-		self::def($field['type'], 'text');
-		self::def($field['desc'], '');
-		self::def($field['label'], $field['id']);
-		self::def($field['dynamic'], false);
-		self::def($field['_dynamicGroup'], $isDynamicGroup);
-		self::def($field['_parents'], '');
-		self::def($field['button'], $field['label']);
-		self::def($field['value'], '');
-		self::def($field['disabled'], false);
-		self::def($field['settings'], array());
-		self::def($field['nolabel'], false);
-		self::def($field['full'], false);
-		self::def($field['options'], array());
-		self::def($field['class'], '');
-		self::def($field['callback'], false);
-		self::def($field['default'], '');
+		oz::def($field['type'], 'text');
+		oz::def($field['desc'], '');
+		oz::def($field['label'], $field['id']);
+		oz::def($field['dynamic'], false);
+		oz::def($field['_dynamicGroup'], $isDynamicGroup);
+		oz::def($field['_parents'], '');
+		oz::def($field['button'], $field['label']);
+		oz::def($field['value'], '');
+		oz::def($field['disabled'], false);
+		oz::def($field['settings'], array());
+		oz::def($field['nolabel'], false);
+		oz::def($field['full'], false);
+		oz::def($field['options'], array());
+		oz::def($field['class'], '');
+		oz::def($field['callback'], false);
+		oz::def($field['default'], '');
 
 		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		// Add field specific styles
@@ -697,16 +697,5 @@ class Metabox{
 				array_pop($parents);
 			}
 		}
-	}
-
-	//=============================================================================
-	// Set a default
-	// ::$var 		[*]	The variable, by reference, to set a default value on
-	// ::$default 	[*] The default value to use if the variable is not set
-	//=============================================================================
-	static function def(&$var, $def){
-		if(!isset($var) && isset($def)) return $var = $def;
-		if(!isset($var) && !isset($def)) return false;
-		return $var;
 	}
 }

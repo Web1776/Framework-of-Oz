@@ -36,17 +36,17 @@ class Menupage{
 		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		// Validate
 		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-		if(!self::def($mp['id'], false)) trigger_error(__('Menu Page requires an ID', 'framework-of-oz'));
+		if(!oz::def($mp['id'], false)) trigger_error(__('Menu Page requires an ID', 'framework-of-oz'));
 
 		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		// Set Defaults
 		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-		self::def($mp['title'], 	$mp['id']);
-		self::def($mp['type'],	 	'add_menu_page');
-		self::def($mp['menu'], 		$mp['title']);
-		self::def($mp['cap'], 		'manage_options');
-		self::def($mp['position'], 	30.314 + count(self::$loaded));
-		self::def($mp['content'],	false);
+		oz::def($mp['title'], 	$mp['id']);
+		oz::def($mp['type'],	 	'add_menu_page');
+		oz::def($mp['menu'], 		$mp['title']);
+		oz::def($mp['cap'], 		'manage_options');
+		oz::def($mp['position'], 	30.314 + count(self::$loaded));
+		oz::def($mp['content'],	false);
 		$this->mp = $mp;
 
 		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -161,15 +161,4 @@ class Menupage{
 		);
 		return $mb;
 	}
-
-	//=============================================================================
-	// Set a default
-	// ::$var 		[*]	The variable, by reference, to set a default value on
-	// ::$default 	[*] The default value to use if the variable is not set
-	//=============================================================================
-	static function def(&$var, $def){
-		if(!isset($var) && isset($def)) return $var = $def;
-		if(!isset($var) && !isset($def)) return false;
-		return $var;
-	}	
 }
