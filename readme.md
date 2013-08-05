@@ -237,9 +237,9 @@ function my_menupage($mp){
 	return $mp;
 }
 ```
-In order to attach metaboxes to this new menu page, **you must set the `post_type` field of the metabox to this page's hande!** The handle is usually in the form of 'location_`id`'. So for a top-level page with an id of 'theme-options', the metaboxes `post_type` field must be set to `toplevel_page_theme-options`.
+In order to attach metaboxes to this new menu page, **you must set the `page` field of the metabox to this page's hande!** The handle is in the form of 'location_`id`'. So for a top-level page with an id of 'theme-options', the metaboxes `page` field must be set to `toplevel_page_theme-options`.
 
-You can quickly get the page's handle by right clicking the menu item and inspecting the item with your browsers inspector (Chrome works best). The ID of the &lt;li&gt; element wrapping that menu item is the handle of the page you must use for your metabox.
+For a submenu, the `page` field would be `parent_slug_page-slug`: where `parent_slug_` is the parent menus slug with hyphens turned into underscore (also notice the last _) and the submenu's ID appended to it. So to add metaboxes to the Team Settings page (`team-settings`) under the menu Team Posts (team-posts), the `page` would be: `team_posts_team-settings`
 
 ###Values
 The $mp[] array takes in the following values:

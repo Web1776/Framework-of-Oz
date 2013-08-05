@@ -47,6 +47,8 @@ class Menupage{
 		oz::def($mp['cap'], 		'manage_options');
 		oz::def($mp['position'], 	30.314 + count(self::$loaded));
 		oz::def($mp['content'],	false);
+		oz::def($mp['parent'], '');
+		oz::def($mp['slug'], $mp['id']);
 		$this->mp = $mp;
 
 		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -66,6 +68,12 @@ class Menupage{
 			//==========================================================
 			case 'add_menu_page':
 				$this->page = add_menu_page($this->mp['title'], $this->mp['menu'], $this->mp['cap'], $this->mp['id'], array(&$this, 'page'), null, $this->mp['position']);
+			break;
+			//==========================================================
+			// Add Submenu Page
+			//==========================================================
+			case 'add_submenu_page': case 'submenu':
+				$this->page = add_submenu_page($this->mp['parent'], $this->mp['title'], $this->mp['menu'], $this->mp['cap'], $this->mp['slug'], array(&$this, 'page'));
 			break;
 			default: trigger_error(__('Invalid Menu Type', 'framework-of-oz'));
 		}
