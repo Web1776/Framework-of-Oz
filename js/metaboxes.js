@@ -10,6 +10,7 @@ jQuery(function($){
 		var $text = $this.parent().prev();
 		var $preview = $this.parent().next();
 		var original_send_to_editor = window.send_to_editor;
+		if(typeof(post_ID) == 'undefined') post_ID = 0;
 		tb_show($this.text(), 'media-upload.php?type='+$this.data('filetypes')+'&TB_iframe=true&post_id='+post_ID, false );
 
 		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -151,8 +152,8 @@ jQuery(function($){
 		$parent.find('.oz-group-panel').each(function(i){
 			$(this).find('.oz-field').each(function(){
 				var $this = $(this);
-				var match = $this.attr('name').match(/\[.*?\]/);
-				var id = $this.attr('name').replace(match[0], '['+i+']');
+				var match = $this.attr('name').match(/\[.*?\]/g);
+				var id = $this.attr('name').replace(match[match.length-1], '['+i+']');
 				$this.attr('id', id);
 				$this.attr('name', id);
 			});

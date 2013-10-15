@@ -272,7 +272,6 @@ class Framework_of_Oz_Metabox{
 			//- - - - - - - - - - - - - - - - - - - - - - - -
 			array_push($parents, $parentID);
 			array_push($groupTree, $groupID);
-			echo '<pre>', print_r($groupTree), '</pre>';
 
 			echo "<div class='oz-group-wrap'>
 			<input type='text' id='$id---states' name='$id---states' class='oz-group-states hidden' value='",json_encode($states),"'>
@@ -438,7 +437,9 @@ class Framework_of_Oz_Metabox{
 						// Editor
 						//===============================================
 						case 'editor':
-							wp_editor($value, $id, array(
+							str_replace('[', 'll', $id);
+							str_replace(']', 'rr', $id);
+							wp_editor(stripslashes($value), $id, array(
 								'textarea_name'	=> $name,
 								'editor_class' => $class
 							));				
@@ -649,7 +650,6 @@ class Framework_of_Oz_Metabox{
 				$flat[$this->mb['id'] . '-' . implode('-', $parents) . '---states'] = '';
 				$this->flatten($field['fields'], $flat, $parents);
 				array_pop($parents);
-				array_pop($groupTree);
 				continue;
 			}
 
