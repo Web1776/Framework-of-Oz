@@ -37,6 +37,7 @@ input.oz-file {
   width: 25%;
   margin: 0;
   display: inline-block;
+  vertical-align: top;
   padding-left: 10px; }
   .oz-file + div button {
     width: 100%; }

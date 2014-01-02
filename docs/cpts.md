@@ -32,7 +32,7 @@ Whichever method you choose, the following values will be used. **NOTE:** Some k
 		'id'		=> #REQUIRED#, 			//(STR) The Post Types internal id/slug
 		'singular'	=> $oz->deslug(%id),	//(STR) Used for singular labels
 		'plural'	=> $oz->deslug(%id),	//(STR) Used for plural labels
-		'icon'		=> '',					//(STR) File location to an Oz CPT Spritesheet, for use in menus and pages
+		'icon'		=> '',					//(STR) The icon class (supports all wordpress dashicons, or any you include)
 		'labels'	=> array(
 			//[From the Codex...should all be strings](http://codex.wordpress.org/Function_Reference/register_post_type)
 			'name'				=> %plural,

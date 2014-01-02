@@ -22,6 +22,7 @@ array(
 												//Set to '!' to ensure this metabox shows ONLY when no template is selected
 	'priority'		=> 'default',			//(STR) The priority. Possible == (high, core, default, low) See: http://codex.wordpress.org/Function_Reference/add_meta_box
 	'context'		=> 'normal',			//(STR) The context. Possible == (normal, advanced, side). See the link above
+	'content'		=> '',					//(STR) Content to display before the fields
 	'fields'		=> array(				//(STR/ARR) #REQUIRED# list of fields. See the "Creating Fields" section for more information
 		array(
 			'type'		=> 'text',				//(STR) The field type. See the listing below

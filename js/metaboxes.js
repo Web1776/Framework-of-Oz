@@ -33,7 +33,28 @@ jQuery(function($){
 	$('.oz-metabox').on('change', '.oz-file', function(){
 		var $this = $(this);
 		var $preview = $this.next().next();
-		$preview.html('<img src="' + $this.val() + '">');
+		var filetype = $this.val().substr($this.val().lastIndexOf('.') + 1);
+		if(filetype) filetype = filetype.toLowerCase();
+		
+		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		// Display preview image or placeholder
+		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		var typesWithImages = ['aac', 'ai', 'aiff', 'avi', 'c', 'cpp', 'css', 'dat', 'dmg', 'doc', 
+			'docx', 'dotx', 'dwg', 'dxf', 'eps', 'exe', 'flv', 'h', 'hpp', 'html', 'ics', 'iso', 'java',
+			'key', 'mid', 'mp3', 'mp4', 'mpg', 'odf', 'ods', 'odt', 'otp', 'ott', 'pdf', 'php',
+			'ppt', 'psd', 'py', 'qt', 'rar', 'rb', 'rtf', 'sql', 'tgz', 'txt', 'wav', 'xls', 'xlsx',
+			'xml', 'yml', 'zip'];
+		var typesWithPreviews = [
+			'bmp', 'gif', 'jpg', 'jpeg', 'png', 'tif', 'tiff'
+		];
+		if(typesWithImages.indexOf(filetype) > 0)
+			$preview.html('<img src="' + FoO_url + '/img/file-icons/'+ filetype + '.png">');
+		else if(typesWithPreviews.indexOf(filetype) > 0)
+			$preview.html('<img src="' + $this.val() + '">');
+		else if(filetype.length > 4)
+			$preview.html('<img src="' + $this.val() + '">');
+		else if($this.val())
+			$preview.html('<img src="' + FoO_url + '/img/file-icons/_page.png">');
 
 		if(!$this.val()) $preview.hide();
 		else $preview.show();

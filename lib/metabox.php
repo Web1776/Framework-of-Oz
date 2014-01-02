@@ -36,6 +36,7 @@ class Framework_of_Oz_Metabox{
 		//===============================================
 		$oz->def($this->mb['label'], 		$oz->deslug($this->mb['id']));
 		$oz->def($this->mb['context'], 		'normal');
+		$oz->def($this->mb['content'], 		'');
 		$oz->def($this->mb['priority'], 	'default');
 		$oz->def($this->mb['include-ids'], 		array());
 		$oz->def($this->mb['exclude-ids'], 		array());
@@ -73,6 +74,7 @@ class Framework_of_Oz_Metabox{
 		$cpt = $screen->post_type;
 		$this->postCPT = $cpt;
 		if(!$this->isMenupage) $template = get_post_meta($this->postID, '_wp_page_template', true);
+		if(!$this->mb['templates']) $this->mb['templates'] = array('default');
 
 		//===============================================
 		// MenuPages
@@ -100,8 +102,9 @@ class Framework_of_Oz_Metabox{
 			//- - - - - - - - - - - - - - - - - - - - - - - -
 			// Does not have template
 			//- - - - - - - - - - - - - - - - - - - - - - - -
-			if(count($this->mb['templates']) && !in_array($template, $this->mb['templates'])) return;
+			if(count($this->mb['templates']) && $template && !in_array($template, $this->mb['templates'])) return;
 			if($template && !in_array($template, $this->mb['templates'])) return;
+
 			//- - - - - - - - - - - - - - - - - - - - - - - -
 			// In exclude list
 			//- - - - - - - - - - - - - - - - - - - - - - - -
@@ -151,6 +154,7 @@ class Framework_of_Oz_Metabox{
 		// Attach Metaboxes
 		//###############################################
 		if(!$this->sanitize()) return false;
+
 		add_meta_box($this->mb['id'], $this->mb['label'], array(&$this, 'initialize_metabox'), $this->postCPT, $this->mb['context'], $this->mb['priority']);
 	}
 
@@ -206,6 +210,16 @@ class Framework_of_Oz_Metabox{
 	//===============================================
 	function initialize_metabox($post){
 		global $oz;
+		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		// JavaScript Variables
+		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		if(!defined('FRAMEWORK_OF_OZ_JS_VARS')){
+			echo '<script>',
+				'FoO_url = "', str_replace('\\', '/', $oz->__FILE__), '";'
+			,'</script>';
+		} else 
+			define('FRAMEWORK_OF_OZ_JS_VARS');
+
 		//- - - - - - - - - - - - - - - - - - - - - - - -
 		// Enqueue Scripts and Styles
 		//- - - - - - - - - - - - - - - - - - - - - - - -
@@ -227,6 +241,7 @@ class Framework_of_Oz_Metabox{
 		//- - - - - - - - - - - - - - - - - - - - - - - -		
 		wp_nonce_field('save_metabox', 'oz_metabox');
 		echo '<div class="oz-metabox">';
+			echo apply_filters('the_content', $this->mb['content']);
 			foreach($this->mb['fields'] as $key=>$field){
 				$this->display_field($field, $key);
 			}
@@ -406,7 +421,7 @@ class Framework_of_Oz_Metabox{
 						//===============================================
 						case 'text': case 'password':
 							$value = esc_attr($value);
-							echo "<input id='$id' data-original-id='$originalID' class='$class' name='$name' type='$type' value='$value' $atts>";
+							echo "<input id='$id' data-original-id='$originalID' class='$class' name='$name' type='$type' value='".stripslashes($value)."' $atts>";
 						break;
 						//===============================================
 						// Selectbox

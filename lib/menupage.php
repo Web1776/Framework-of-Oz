@@ -24,7 +24,8 @@ class Framework_of_Oz_Menupage{
 		$oz->def($mp['type'],  	'root');
 		$oz->def($mp['menu'], 	$oz->deslug($mp['title']));
 		$oz->def($mp['cap'], 	'manage_options');
-		$oz->def($mp['content'], '');
+		$oz->def($mp['content'],'');
+		$oz->def($mp['icon'], 	''); 
 		$oz->def($mp['position'], 	34.149 + $oz->_menupages);
 		$this->mp = $mp;
 
@@ -63,7 +64,7 @@ class Framework_of_Oz_Menupage{
 		//- - - - - - - - - - - - - - - - - - - - - - - -
 		switch($this->mp['type']){
 			case 'root':
-				$this->page = add_menu_page($this->mp['title'], $this->mp['menu'], $this->mp['cap'], $this->mp['id'], array(&$this, 'page'), null, $this->mp['position']);
+				$this->page = add_menu_page($this->mp['title'], $this->mp['menu'], $this->mp['cap'], $this->mp['id'], array(&$this, 'page'), $this->mp['icon'], $this->mp['position']);
 			break;
 		}
 
@@ -134,7 +135,10 @@ class Framework_of_Oz_Menupage{
 	      		  </form>			
  
 		 </div><!-- .wrap -->	
-	<?php }	
+	<?php 
+		wp_enqueue_style('thickbox');
+		wp_enqueue_script('thickbox');
+	}	
 }
 
 

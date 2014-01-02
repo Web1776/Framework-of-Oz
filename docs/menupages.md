@@ -12,7 +12,8 @@ array(
 	'type'			=> 'root',				//(STR) The menu type
 	'cap'			=> 'manage_options',	//(STR) The capability required to make changes: http://codex.wordpress.org/Roles_and_Capabilities
 	'position'		=> 34.149 + %menupages,	//(INT) The position of the menu item. %menupages is the number of menupages loaded so far in order to prevent duplicates. It is suggested to used decimals for the same reason: http://codex.wordpress.org/Function_Reference/add_menu_page
-	'content'		=> ''					//(STR) Content to display underneath the title
+	'content'		=> '',					//(STR) Content to display underneath the title
+	'icon'			=> '',					//(STR) The icon class (supports all wordpress dashicons, or any you include)
 )
 ```
 
