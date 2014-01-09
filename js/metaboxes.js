@@ -24,6 +24,10 @@ jQuery(function($){
 			tb_remove();
 			window.send_to_editor = original_send_to_editor;
 		}
+		$('#TB_iframeContent').load(function(){
+			$('#TB_iframeContent').contents().find('head')
+				.append($('<style>p.search-box{position:relative !important; margin-bottom: 0 !important;}</style>'));
+		});
 
 		return false;
 	});
